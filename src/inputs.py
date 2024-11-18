@@ -1,5 +1,4 @@
 import numpy as np
-from Bio import PDB
 from Bio.PDB.PDBParser import PDBParser
 
 NUCLEOTIDE_ATOMS = ["P",
@@ -12,7 +11,21 @@ NUCLEOTIDE_ATOMS = ["P",
             "O1'",
             "O3'"]
 
-def load_atoms(filename: str, selected_atoms: list[str] = NUCLEOTIDE_ATOMS) -> np.ndarray:
+def load_atoms(filename: str, selected_atoms: list[str] | str = NUCLEOTIDE_ATOMS) -> np.ndarray:
+    """
+    Load the (x, y, z) coordinates of atoms from a PDB file
+
+    Args
+    ----
+        filename:
+            path to the PDB file
+        selected_atoms:
+            either a list of residue names to keep or "all", if no filter has to be applied
+
+    Results
+    -------
+        a matrix (N, 3) [[x,y,z], ...] with atom coordinates
+    """
     parser = PDBParser(PERMISSIVE=1)
     structure_id = None
     structure = parser.get_structure(structure_id, filename)
@@ -21,7 +34,7 @@ def load_atoms(filename: str, selected_atoms: list[str] = NUCLEOTIDE_ATOMS) -> n
     for chain in model:
         for residue in chain:
             for atom in residue:
-                if atom.get_name() in selected_atoms:
+                if selected_atoms == "all" or atom.get_name() in selected_atoms:
                     coordinates.append(atom.get_coord())
     return np.array(coordinates)
 

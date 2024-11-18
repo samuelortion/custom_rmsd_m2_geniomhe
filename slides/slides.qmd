@@ -1,0 +1,11 @@
+---
+title: Coarse-Grained RMSD vs other structural comparison metrics
+author:
+  - Naïa Périnelle
+  - Samuel Ortion
+format:
+  revealjs:
+    theme: dark
+---
+
+## 

@@ -4,8 +4,8 @@ import inputs
 
 
 class CustomCGRMSD:
-  def __init__(self, *args, **kwargs):
-      pass
+  def __init__(self, selected_atoms=inputs.NUCLEOTIDE_ATOMS):
+      self.selected_atoms = selected_atoms
 
   def predict(self, native_path: str, predicted_path: str) -> float:
     """
@@ -20,10 +20,8 @@ class CustomCGRMSD:
     -------
         A custom Coarse Grained - RMSD metric
     """
-    print(native_path, predicted_path)
-    selected_atoms = ["C3'"]
-    native_atoms: np.ndarray = inputs.load_atoms(native_path, selected_atoms=selected_atoms)
-    predicted_atoms: np.ndarray = inputs.load_atoms(predicted_path, selected_atoms=selected_atoms)
+    native_atoms: np.ndarray = inputs.load_atoms(native_path, selected_atoms=self.selected_atoms)
+    predicted_atoms: np.ndarray = inputs.load_atoms(predicted_path, selected_atoms=self.selected_atoms)
     assert native_atoms.shape == predicted_atoms.shape, f"Not the same number of atoms in {native_path} compared to {predicted_path}"
     rotation, _ = utils.compute_rssd(native_atoms, predicted_atoms)
     aligned_predicted_atoms: np.ndarray = utils.align_predicted_atoms(native_atoms, predicted_atoms, rotation)

@@ -32,7 +32,5 @@ for native_filename in native_filenames:
 
         scores.append(score)
     os.makedirs("tmp/", exist_ok=True)
-    print(len(scores))
-    print(len(predicted_structures))
     df = pd.DataFrame(dict(model=predicted_structures, scores=scores))
     df.to_csv(os.path.join("tmp/", f"{identifier}.csv"))

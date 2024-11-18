@@ -1,7 +1,25 @@
- [build-system]
- requires = ["hatchling"]
- build-backend = "hatchling.build"
 
 [project]
 dynamic = ["version"]
-name =
+name = "cg_rmsd_m2_geniomhe"
+authors = [
+    { name = "Naïa Périnelle", email = "naia.perinelle@etud.univ-evry.fr" },
+    { name = "Samuel Ortion", email = "samuel.ortion@etud.univ-evry.fr" },
+]
+description = "Comparison of Coarse-Grained Root Mean Square Deviation between two RNA structures with other structural comparison metrics. A project in M2 GENIOMHE."
+dependencies = [
+    "numpy",
+    "pandas",
+    "biopython",
+    "scipy"
+]
+keywords = ["RNA", "structure", "PDB", "RMSD"]
+
+[project.urls]
+Homepage = "https://github.com/sortion/cg_rmsd_m2_geniomhe"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
