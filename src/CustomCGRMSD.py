@@ -1,6 +1,7 @@
 import utils
 import metrics
 import inputs
+import numpy as np
 
 
 class CustomCGRMSD:
