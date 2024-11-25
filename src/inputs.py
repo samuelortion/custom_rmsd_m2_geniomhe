@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from Bio.PDB.PDBParser import PDBParser
 
@@ -41,4 +42,4 @@ def load_atoms(filename: str, selected_atoms: list[str] | str = NUCLEOTIDE_ATOMS
 
 
 if __name__ == "__main__":
-    atoms = load_atoms("data/NATIVE/rp03.pdb", "C3'")
+    atoms = load_atoms(os.path.join("data","NATIVE","rp03.pdb"), "C3'")

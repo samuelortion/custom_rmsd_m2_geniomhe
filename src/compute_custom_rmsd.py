@@ -8,9 +8,9 @@ import pandas as pd
 
 from CustomCGRMSD import CustomCGRMSD
 
-NATIVE = "data/NATIVE"
-PREDS = "data/PREDS"
-SCORES = "data/GC_RMSD"
+NATIVE = os.path.join("data", "NATIVE")
+PREDS = os.path.join("data", "PREDS")
+SCORES = os.path.join("data", "GC_RMSD")
 
 native_filenames = os.listdir(NATIVE)
 
@@ -31,6 +31,6 @@ for native_filename in native_filenames:
             score = pd.NA
 
         scores.append(score)
-    os.makedirs("tmp/", exist_ok=True)
+    os.makedirs("tmp", exist_ok=True)
     df = pd.DataFrame(dict(model=predicted_structures, scores=scores))
-    df.to_csv(os.path.join("tmp/", f"{identifier}.csv"))
+    df.to_csv(os.path.join("tmp", f"{identifier}.csv"))

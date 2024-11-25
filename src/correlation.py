@@ -8,11 +8,11 @@ import numpy as np
 import pandas as pd
 import os
 
-NATIVE = "data/NATIVE"
-SCORES = "data/SCORES"
+NATIVE = os.path.join("data", "NATIVE")
+SCORES = os.path.join("data", "SCORES")
 
 def correlation(identifier):
-    cg_rmsd_df = pd.read_csv(os.path.join("tmp/", f"{identifier}.csv"))
+    cg_rmsd_df = pd.read_csv(os.path.join("tmp", f"{identifier}.csv"))
     other_df = pd.read_csv(os.path.join(SCORES, f"{identifier}.csv"), index_col=0)
     cg_rmsd_df = cg_rmsd_df.set_index('model')
     cg_rmsd_df = cg_rmsd_df.reindex(index=other_df.index)
