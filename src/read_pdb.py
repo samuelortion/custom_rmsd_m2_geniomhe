@@ -1,3 +1,7 @@
+"""
+    Since we have also a inputs.py script to do the same things, this draft will be probably removed
+"""
+
 import numpy as np
 
 ATOM_LIST = [

@@ -12,12 +12,34 @@ NATIVE = os.path.join("data", "NATIVE")
 SCORES = os.path.join("data", "SCORES")
 
 def correlation(identifier):
+    """
+    Function that computes correlation coefficients
+    between Coarse-Grained RMSD (CGRMDS) and other metrics
+
+    Args
+    ----
+        identifier: str
+            unique to each structure, use to locate associated `.csv` file
+    
+    Returns
+    -------
+        A tuple containing the pearson correlation coefficient and the p-value
+    """
     cg_rmsd_df = pd.read_csv(os.path.join("tmp", f"{identifier}.csv"))
     other_df = pd.read_csv(os.path.join(SCORES, f"{identifier}.csv"), index_col=0)
+
+    # Set the index of cg_rmsd_df to be the 'model' column (assumed column in the CSV)
     cg_rmsd_df = cg_rmsd_df.set_index('model')
+    # Align the indices of cg_rmsd_df to match the other_df based on their indices
     cg_rmsd_df = cg_rmsd_df.reindex(index=other_df.index)
+
     cg_rmsd = cg_rmsd_df["scores"]
     rmsd = other_df["RMSD"]
+
+    print(cg_rmsd.isna().any())
+    print(rmsd.isna().any())
+
+    # Filter out pairs of values where either cg_rmsd or rmsd is NaN (missing values)
     cg_rmsd_values = [
         cg_rmsd for cg_rmsd, rmsd in zip(cg_rmsd.values, rmsd.values)
         if not pd.isna(cg_rmsd) and not pd.isna(rmsd)
@@ -26,19 +48,22 @@ def correlation(identifier):
         rmsd for cg_rmsd, rmsd in zip(cg_rmsd.values, rmsd.values)
         if not pd.isna(cg_rmsd) and not pd.isna(rmsd)
     ]
+
     assert len(cg_rmsd_values) == len(rmsd_values)
     return pearsonr(cg_rmsd.values, rmsd.values)
 
 
 def main():
     native_structures = os.listdir(NATIVE)
-    correlation_scores = []
+    correlation_scores = [] # List to store correlation scores for each native structure
     for native_structure in native_structures:
         identifier = native_structure.replace(".pdb", "")
         score = correlation(identifier)
+        # Check if the Pearson correlation coefficient is a valid number (not NaN)
         if score.statistic != np.nan:
             print(score.statistic)
             correlation_scores.append(score.statistic)
+    # Compute and print the average correlation score for all structures
     print(sum(correlation_scores) / len(correlation_scores))
 
 
