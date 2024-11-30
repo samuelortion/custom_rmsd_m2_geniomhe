@@ -3,7 +3,6 @@ import metrics
 import inputs
 import numpy as np
 
-
 class CustomCGRMSD:
   def __init__(self, selected_atoms=inputs.NUCLEOTIDE_ATOMS):
       self.selected_atoms = selected_atoms

@@ -37,9 +37,7 @@ def load_atoms(filename: str, selected_atoms: list[str] | str = NUCLEOTIDE_ATOMS
             for atom in residue:
                 if selected_atoms == "all" or atom.get_name() in selected_atoms:
                     coordinates.append(atom.get_coord())
-    return np.array(coordinates)
-
-
+        return np.array(coordinates)
 
 if __name__ == "__main__":
     atoms = load_atoms(os.path.join("data","NATIVE","rp03.pdb"), "C3'")
