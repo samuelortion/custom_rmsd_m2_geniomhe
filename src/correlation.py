@@ -28,16 +28,26 @@ def correlation(identifier):
     cg_rmsd_df = pd.read_csv(os.path.join("tmp", f"{identifier}.csv"))
     other_df = pd.read_csv(os.path.join(SCORES, f"{identifier}.csv"), index_col=0)
 
+    print("\n cg_rmsd_df : \n", cg_rmsd_df)
+    print("\n other_df : \n", other_df)
+
     # Set the index of cg_rmsd_df to be the 'model' column (assumed column in the CSV)
     cg_rmsd_df = cg_rmsd_df.set_index('model')
+    print("\n cg_rmsd_df after set_index : \n", cg_rmsd_df)
     # Align the indices of cg_rmsd_df to match the other_df based on their indices
-    cg_rmsd_df = cg_rmsd_df.reindex(index=other_df.index)
+    # cg_rmsd_df = cg_rmsd_df.reindex(labels=other_df.index)
+    #cg_rmsd_df.index = other_df.index
+    cg_rmsd_df = cg_rmsd_df.set_index(other_df.index)
+    print("\n other_df.index : \n", other_df.index)
+    print("\n cg_rmsd_df after reindex : \n", cg_rmsd_df)
 
     cg_rmsd = cg_rmsd_df["scores"]
     rmsd = other_df["RMSD"]
 
-    print(cg_rmsd.isna().any())
-    print(rmsd.isna().any())
+    print("\n cg_rmsd : \n",cg_rmsd)
+    print("\n rmsd : \n", rmsd)
+    print("\n is na in cg_rmsd : \n", cg_rmsd.isna().any())
+    print("is na in rmsd : \n",rmsd.isna().any())
 
     # Filter out pairs of values where either cg_rmsd or rmsd is NaN (missing values)
     cg_rmsd_values = [
@@ -48,6 +58,8 @@ def correlation(identifier):
         rmsd for cg_rmsd, rmsd in zip(cg_rmsd.values, rmsd.values)
         if not pd.isna(cg_rmsd) and not pd.isna(rmsd)
     ]
+    print("\n cg_rmsd_value : \n", cg_rmsd_values)
+    print("\n rmsd_values : \n", rmsd_values)
 
     assert len(cg_rmsd_values) == len(rmsd_values)
     return pearsonr(cg_rmsd.values, rmsd.values)
@@ -61,10 +73,10 @@ def main():
         score = correlation(identifier)
         # Check if the Pearson correlation coefficient is a valid number (not NaN)
         if score.statistic != np.nan:
-            print(score.statistic)
+            print("score : ",score.statistic)
             correlation_scores.append(score.statistic)
     # Compute and print the average correlation score for all structures
-    print(sum(correlation_scores) / len(correlation_scores))
+    print("last print : ",sum(correlation_scores) / len(correlation_scores))
 
 
 if __name__ == "__main__":
