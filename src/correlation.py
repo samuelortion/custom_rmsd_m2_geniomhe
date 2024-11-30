@@ -34,10 +34,13 @@ def correlation(identifier):
     # Set the index of cg_rmsd_df to be the 'model' column (assumed column in the CSV)
     cg_rmsd_df = cg_rmsd_df.set_index('model')
     print("\n cg_rmsd_df after set_index : \n", cg_rmsd_df)
+    # Rename the index by adding "normalized_" to the beginning of each value
+    cg_rmsd_df.index = cg_rmsd_df.index.map(lambda x: f"normalized_{x}")
+    print("\n cg_rmsd_df.index : \n", cg_rmsd_df.index)
+    print("\n cg_rmsd_df agter the map : \n", cg_rmsd_df)
     # Align the indices of cg_rmsd_df to match the other_df based on their indices
-    # cg_rmsd_df = cg_rmsd_df.reindex(labels=other_df.index)
-    #cg_rmsd_df.index = other_df.index
-    cg_rmsd_df = cg_rmsd_df.set_index(other_df.index)
+    cg_rmsd_df = cg_rmsd_df.reindex(index=other_df.index)
+
     print("\n other_df.index : \n", other_df.index)
     print("\n cg_rmsd_df after reindex : \n", cg_rmsd_df)
 
@@ -76,7 +79,8 @@ def main():
             print("score : ",score.statistic)
             correlation_scores.append(score.statistic)
     # Compute and print the average correlation score for all structures
-    print("last print : ",sum(correlation_scores) / len(correlation_scores))
+    print("\n correlation_scores : \n", correlation_scores)
+    print("average correlation score : ",sum(correlation_scores) / len(correlation_scores))
 
 
 if __name__ == "__main__":
