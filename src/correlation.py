@@ -65,7 +65,7 @@ def correlation(identifier):
     print("\n rmsd_values : \n", rmsd_values)
 
     assert len(cg_rmsd_values) == len(rmsd_values)
-    return pearsonr(cg_rmsd.values, rmsd.values)
+    return pearsonr(cg_rmsd_values, rmsd_values)
 
 
 def main():
