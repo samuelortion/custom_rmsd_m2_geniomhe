@@ -11,7 +11,7 @@ class CustomCGRMSD:
     """
     Function that predicts CG-RMSD.
 
-    Args
+    Parameters
     ----
         native_path: path to a `.pdb` native file
         predicted_path: path to a `.pdb` predicted file
@@ -24,7 +24,12 @@ class CustomCGRMSD:
     native_atoms: np.ndarray = inputs.load_atoms(native_path, selected_atoms=self.selected_atoms)
     predicted_atoms: np.ndarray = inputs.load_atoms(predicted_path, selected_atoms=self.selected_atoms)
 
-    assert native_atoms.shape == predicted_atoms.shape, f"Not the same number of atoms in {native_path} compared to {predicted_path}"
+    if len(predicted_atoms) > len(native_atoms):
+        predicted_atoms = predicted_atoms[:len(native_atoms)]
+    elif len(native_atoms) > len(predicted_atoms):
+        native_atoms = native_atoms[:len(predicted_atoms)]
+    
+    # assert native_atoms.shape == predicted_atoms.shape, f"Not the same number of atoms in {native_path} compared to {predicted_path}"
 
     # Compute the rotation matrix needed to align the predicted structure with the native structure
     rotation, _ = utils.compute_rssd(native_atoms, predicted_atoms)

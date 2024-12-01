@@ -8,7 +8,7 @@ def rmsd(coordinates_1: np.ndarray, coordinates_2: np.ndarray) -> float:
     """
     Compute the Root Mean Square deviation between two set of points, one set aligned to the other.
 
-    Args
+    Parameters
     ----
         coordinates_1:
             coordinates of the first set of points

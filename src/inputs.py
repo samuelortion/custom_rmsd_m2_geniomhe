@@ -16,7 +16,7 @@ def load_atoms(filename: str, selected_atoms: list[str] | str = NUCLEOTIDE_ATOMS
     """
     Load the (x, y, z) coordinates of atoms from a PDB file
 
-    Args
+    Parameters
     ----
         filename:
             path to the PDB file
@@ -44,8 +44,8 @@ def load_atoms(filename: str, selected_atoms: list[str] | str = NUCLEOTIDE_ATOMS
                 # If there are no filter or if actual atom is in the selected list, append its coordinates
                 if selected_atoms == "all" or atom.get_name() in selected_atoms:
                     coordinates.append(atom.get_coord())
-        # Convert the list of coordinates into a NumPy array and return
-        return np.array(coordinates)
+    # Convert the list of coordinates into a NumPy array and return
+    return np.array(coordinates)
 
 # Example usage: load all C3' atoms from a specific PDB file
 if __name__ == "__main__":
