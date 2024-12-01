@@ -27,3 +27,15 @@ You might need `numpy`, `scipy`, `matplotlib` and `biopython` to run this projec
 ```bash
 pip install numpy scipy matplotlib biopython
 ```
+
+## Usage
+
+Our project is divided in two main part, which need to be launch in two time. All our scripts can be find in the `src` folder.
+
+First, we have the computation of our custom Coarse-grained RMSD.
+- You will need to run the `compute_custom_rmsd.py` script. This will create a `tmp` folder to stock a `.csv` file per RNA provided in the `data` following the same structure that the files provided in **SCORES** folder, with our `CG-RMSD` for all predicted models.
+
+This code used the `CustomCGRMSD` class and its method present in the `CustomCGRMSD.py` script. Our `inputs.py` method is used by the `CustomCGRMSD.predict` method in order to read the differents `pdb` files from `data` **NATIVE** and **PREDS** folders. Our `metrics.py` method is used also by the `CustomCGRMSD.predict` method to compute the Root Mean Square deviation between two set of points. We used also the `compute_rssd` method from the `utils.py` provided.
+
+Then, we have the computation of the correlation between our `CG-RMSD` score and the other metrics.
+- You will need to run the `correlation.py` script. This will print in your terminal the correlation calculated from the generated files in `tmp` folder by running the previous step, and the provided files in `data` **SCORES** folder.
