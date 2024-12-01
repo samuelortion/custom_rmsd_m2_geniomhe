@@ -3,9 +3,112 @@ title: Coarse-Grained RMSD vs other structural comparison metrics
 author:
   - Naïa Périnelle
   - Samuel Ortion
+  - Anis Ben Salah
 format:
   revealjs:
     theme: dark
 ---
 
-## 
+## Slide 1: Introduction
+
+### Objective
+- Develop a **coarse-grained RMSD (CG-RMSD)** metric for RNA structure evaluation.
+- Compare CG-RMSD to existing structural metrics:
+  - RMSD
+  - MCQ
+  - TM-Score
+
+### Why is this important?
+- RNA structure prediction metrics guide better modeling and understanding of RNA functionality.
+
+---
+
+## Slide 2: Dataset
+
+### Data Overview
+- **Native Structures**: RNA-Puzzles dataset
+  - Total structures: 22 non-redundant `.pdb` files.
+- **Predicted Structures**: Models from various RNA structure prediction tools.
+- **Precomputed Metrics**:
+  - RMSD
+  - MCQ
+  - TM-Score
+
+---
+
+## Slide 3: Methodology
+
+### Workflow for Custom CG-RMSD
+1. Load native and predicted RNA structures.
+2. Align structures to minimize deviation.
+3. Select specific atoms per nucleotide for coarse-grained calculation.
+4. Compute and store CG-RMSD values.
+---
+
+## Slide 4: Results
+
+### Computed CG-RMSD Values
+- **Example Values**:
+  - Structure 1: *Insert result here*
+  - Structure 2: *Insert result here*
+  - Structure 3: *Insert result here*
+
+### Correlation Analysis
+- Correlation with RMSD: *Insert result here*
+- Correlation with MCQ: *Insert result here*
+- Correlation with TM-Score: *Insert result here*
+
+### Visualization
+-![visualization](path/to/visualization.png)
+
+---
+
+## Slide 5: Challenges
+s
+### Key Challenges Encountered
+- **Data Preparation**:
+  - Missing data in `.pdb` files: *Insert specific issue here*
+- **Alignment Issues**:
+  - Alignment inconsistencies between native and predicted structures.
+- **Metric Validation**:
+  - Statistical validation of CG-RMSD results compared to standard metrics.
+
+### Notes
+- *Insert any additional challenges or troubleshooting notes here.*
+
+---
+
+## Slide 6: Discussion
+
+### Comparative Analysis
+- **Strengths**:
+  - Simplified representation using coarse-grained selection.
+  - Faster computation compared to full-atomic metrics.
+- **Limitations**:
+  - Loss of atomic detail in coarse-grained calculations.
+  - Possible insensitivity to minor structural variations.
+
+### Key Insights
+- CG-RMSD correlates with *Insert insights here*.
+- It provides a complementary perspective to *Insert complementary metric here*.
+
+---
+
+## Slide 7: Conclusion and Future Work
+
+### Summary of Findings
+- Custom CG-RMSD implemented and validated against RMSD, MCQ, and TM-Score.
+- Correlation results: *Insert summary of correlation here*.
+
+### Future Directions
+- Apply CG-RMSD to more diverse RNA datasets.
+- Refine atom selection criteria to improve accuracy.
+- Explore automation of the metric within RNA modeling tools.
+
+---
+
+
+## Slide 8: Questions?
+
+# Thank you!
+- Any questions?
