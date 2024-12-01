@@ -80,7 +80,7 @@ def correlation_coefficients(tmp_dir: str):
         identifier = native_structure.replace(".pdb", "")
         # For each metric, calculate the correlation with CG-RMSD
         for metrics in score_metrics:
-            score = correlation(identifier, metrics)
+            score = correlation(identifier, metrics,tmp_dir)
             if not pd.isna(score):
                 score_values[metrics].append(score)
 
