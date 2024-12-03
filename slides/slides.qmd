@@ -4,12 +4,17 @@ author:
   - Naïa Périnelle
   - Samuel Ortion
   - Anis Ben Salah
+date: 2024-12-03
 format:
   revealjs:
     theme: dark
+    slideNumber: true
+    scrollable: true
 ---
 
-## Slide 1: Introduction
+
+
+## Introduction
 
 ### Objective
 - Develop a **coarse-grained RMSD (CG-RMSD)** metric for RNA structure evaluation.
@@ -23,7 +28,13 @@ format:
 
 ---
 
-## Slide 2: Dataset
+![](image.png)
+
+---
+
+## Dataset
+
+
 
 ### Data Overview
 - **Native Structures**: RNA-Puzzles dataset
@@ -36,7 +47,7 @@ format:
 
 ---
 
-## Slide 3: Methodology
+## Methodology
 
 ### Workflow for Custom CG-RMSD
 1. Load native and predicted RNA structures.
@@ -45,40 +56,48 @@ format:
 4. Compute and store CG-RMSD values.
 ---
 
-## Slide 4: Results
+## Results
 
 ### Computed CG-RMSD Values
 - **Example Values**:
-  - Structure 1: *Insert result here*
-  - Structure 2: *Insert result here*
-  - Structure 3: *Insert result here*
-
-### Correlation Analysis
-- Correlation with RMSD: *Insert result here*
-- Correlation with MCQ: *Insert result here*
-- Correlation with TM-Score: *Insert result here*
-
-### Visualization
--![visualization](path/to/visualization.png)
+  - Structure `rp03` with `alphafold3` model: 16.307
+  - Structure `rp14_free` with `trrosettarna` model: 5.511 
+  - Structure `rp23` with `isrna` model: 12.966
 
 ---
 
-## Slide 5: Challenges
-s
+### Correlation Analysis
+
+| Correlation with | all    | P      | C5'    | O5'    | [P, O5', C5', C4', C3', C2', C1', O1',O3'] |
+| :--------------- | :----: | :----: | :----: | :----: | :----------------------------------------- |
+| RMSD             | 0.694  | 0.726  | 0.727  | 0.729  | 0.730                                      |
+| MCQ              | 0.133  | 0.131  | 0.123  | 0.129  | 0.130                                      |
+| TM-Score         | -0.386 | -0.414 | -0.415 | -0.416 | -0.415                                     |
+
+---
+
+### Visualization
+
+![Pearson correlation](boxplot_correlation.png)
+
+---
+
+## Challenges
+
 ### Key Challenges Encountered
 - **Data Preparation**:
-  - Missing data in `.pdb` files: *Insert specific issue here*
-- **Alignment Issues**:
-  - Alignment inconsistencies between native and predicted structures.
+  - Missing data in `.pdb` files: the length of the predicted structures does not always match the native structures.
 - **Metric Validation**:
   - Statistical validation of CG-RMSD results compared to standard metrics.
 
+
+
 ### Notes
-- *Insert any additional challenges or troubleshooting notes here.*
+- Some atom names does not correspond to standard nucleotides.
 
 ---
 
-## Slide 6: Discussion
+## Discussion
 
 ### Comparative Analysis
 - **Strengths**:
@@ -88,17 +107,22 @@ s
   - Loss of atomic detail in coarse-grained calculations.
   - Possible insensitivity to minor structural variations.
 
-### Key Insights
-- CG-RMSD correlates with *Insert insights here*.
-- It provides a complementary perspective to *Insert complementary metric here*.
+## About the choice of a correlation metrics
+
+- Spearman correlation does not require a linear correlation.
+- Pearson is sensitive to outliers.
+
+<!-- ### Key Insights -->
+
+
 
 ---
 
-## Slide 7: Conclusion and Future Work
+## Conclusion and Future Work
 
 ### Summary of Findings
-- Custom CG-RMSD implemented and validated against RMSD, MCQ, and TM-Score.
-- Correlation results: *Insert summary of correlation here*.
+- Custom CG-RMSD implemented and compared to RMSD, MCQ, and TM-Score.
+- Correlation results: the correlation is higher with more atoms selected.
 
 ### Future Directions
 - Apply CG-RMSD to more diverse RNA datasets.
@@ -106,9 +130,6 @@ s
 - Explore automation of the metric within RNA modeling tools.
 
 ---
-
-
-## Slide 8: Questions?
 
 # Thank you!
 - Any questions?
